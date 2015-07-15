@@ -103,7 +103,7 @@
 
 <script type="text/template" id="post-template">
 
-  <li class="blog-post-item" id="bp-<%= id %>" data-id="<%= id %>">
+  <li class="blog-post-item" id="bp-<%= _id %>" data-id="<%= _id %>">
      
     <span class="label label-default"><%= username %></span>
       <%= forumPost %>
@@ -112,11 +112,11 @@
         <span aria-hidden="true">&times;</span>
     </button>
 
-    <a class="edit-icon" data-toggle="collapse" data-target="#update-<%= id %>">
+    <a class="edit-icon" data-toggle="collapse" data-target="#update-<%= _id %>">
         <span class="glyphicon glyphicon-edit edit"></span>
     </a>
 
-    <div class="collapse" id="update-<%= id %>">
+    <div class="collapse" id="update-<%= _id %>">
       <br>
       <form class="form-inline update-blog-post">
         <input type="text" class="form-control updated-username" value="<%= username %>" placeholder="Different UserName?">

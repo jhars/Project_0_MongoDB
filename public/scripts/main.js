@@ -16,7 +16,7 @@ template: _.template($('#post-template').html()),
 //----Event-listeners 4 UPDATE & DELETE ----//
 
  all: function () {
-  $.get('/api/blogposts', function (data) {
+  $.get('/api/forumposts', function (data) {
     var forumData = data;
     _.each(forumData, function (blogpost) {
     postController.render(blogpost);
@@ -26,9 +26,9 @@ template: _.template($('#post-template').html()),
  },
 
  create: function (newID, newUserName, newForumPost){
-  var blogPostData = {id: newID, username: newUserName, forumPost: newForumPost};
+  var blogPostData = {_id: newID, username: newUserName, forumPost: newForumPost};
 
-  $.post('/api/blogposts', blogPostData, function (data){
+  $.post('/api/forumposts', blogPostData, function (data){
     var newPost = data;
     postController.render(newPost);
   });
@@ -37,7 +37,7 @@ template: _.template($('#post-template').html()),
 update: function(userID, updatedUsername, updatedForumPost){
   $.ajax({
     type: 'PUT',
-    url: '/api/blogposts/' + userID,
+    url: '/api/forumposts' + userID,
     data: {
       username: updatedUsername,
       forumPost: updatedForumPost
@@ -53,7 +53,7 @@ update: function(userID, updatedUsername, updatedForumPost){
 delete: function (userID) {
   $.ajax({
     type: 'DELETE',
-    url: '/api/blogposts/' + userID,
+    url: '/api/forumposts' + userID,
     success: function(data) {
       $('#bp-' + userID).remove();
     }
@@ -93,7 +93,9 @@ setupView: function() {
   postController.all();
   $('#new-post').on('submit', function (event) {
     event.preventDefault();
-
+//----------NEED TO RECONCILE THIS !!!!!!!----------------//
+//----------NEED TO RECONCILE THIS !!!!!!!----------------//
+//----------NEED TO RECONCILE THIS !!!!!!!----------------//
     var newID = 5;
     var newUserName = $('#user-name').val();
     var newForumPost = $('#blog-post').val();
