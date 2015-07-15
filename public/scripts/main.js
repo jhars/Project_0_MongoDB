@@ -93,10 +93,8 @@ setupView: function() {
   postController.all();
   $('#new-post').on('submit', function (event) {
     event.preventDefault();
-//----------NEED TO RECONCILE THIS !!!!!!!----------------//
-//----------NEED TO RECONCILE THIS !!!!!!!----------------//
-//----------NEED TO RECONCILE THIS !!!!!!!----------------//
-    var newID = 5;
+
+    var newID = null;
     var newUserName = $('#user-name').val();
     var newForumPost = $('#blog-post').val();
     postController.create(newID, newUserName, newForumPost);
