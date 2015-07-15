@@ -37,16 +37,16 @@ app.get('/api/forumposts', function (req, res){
 
 
 // //---------Show User based on ID in URL----------//
-app.get('/api/blogposts/:id', function (req, res){
-	var targetID = req.params.id;
-	var showBlogPost= _.findWhere(blogposts, {id: targetID});
-	res.json(showBlogPost);
-});
+// app.get('/api/blogposts/:id', function (req, res){
+// 	var targetID = req.params.id;
+// 	var showBlogPost= _.findWhere(blogposts, {id: targetID});
+// 	res.json(showBlogPost);
+// });
 
 
 app.get('/api/forumposts/:id', function (req, res){
 	var targetID = req.params.id;
-	ForumPost.findOne({_id: targetId}, function (err, foundForumPost){
+	ForumPost.findOne({_id: targetID}, function (err, foundForumPost){
 		console.log(foundForumPost);
 		if(err){
 			console.log("wtf happened dude", err);
@@ -99,24 +99,11 @@ app.post('/api/forumposts', function (req, res){
 	});
 });
 
-
-// // //-----------UPDATE POST (ORIGINAL)-------------------//
-
-// app.put('/api/blogposts/:id', function (req, res){
-// 	var targetID = req.params.id;
-// 	//-------SAME AS forEach + if statement--------//
-// 	var foundBlogPost = _.findWhere(blogposts, {id: targetID});
-// 	foundBlogPost.username = req.body.username;
-// 	foundBlogPost.forumPost = req.body.forumPost;
-
-// 	res.json(foundBlogPost);
-// });
-
 //----------------UPDATE SINGLE POST---------------//
 
 app.put('/api/forumposts/:id', function (req, res){
 	var targetID = req.params.id;
-	ForumPost.findOne({_id: targetId}, function (err, foundForumPost){
+	ForumPost.findOne({_id: targetID}, function (err, foundForumPost){
 		if(err){
 			console.log("wrong again fucker");
 			res.status(500).send(err);
@@ -137,33 +124,45 @@ app.put('/api/forumposts/:id', function (req, res){
 });
 
 //----------DELETE USER (ORIGINAL)-----------------//
-app.delete('/api/blogposts/:id',function (req, res){
-	var targetID = req.params.id;
-	var foundBlogPost = _.findWhere(blogposts, {id: targetID});
-	var index = blogposts.indexOf(foundBlogPost);
-	blogposts.splice(index,1);
-	res.json(foundBlogPost.username + ' has been deleted');
-});
+// app.delete('/api/blogposts/:id',function (req, res){
+// 	var targetID = req.params.id;
+// 	var foundBlogPost = _.findWhere(blogposts, {id: targetID});
+// 	var index = blogposts.indexOf(foundBlogPost);
+// 	blogposts.splice(index,1);
+// 	res.json(foundBlogPost.username + ' has been deleted');
+// });
 
 //-----------------DELETE User By ID------------------//
-app.delete('api/forumposts/:id', function (req, res){
+app.delete('/api/forumposts/:id', function (req, res){
 	var targetID = req.params.id;
-	ForumPost.findOne({_id: targetId}, function (err, deletedForumPost){
+	ForumPost.findOneAndRemove({_id: targetID}, function (err, deletedForumPost){
 		if(err){
 			console.log("wrong again fucker");
 			res.status(500).send(err);
 		} else {
-			res.json(foundForumPost);
-			foundForumPost.findOneAndRemove(function (err, deletedForumPost){
-				if (err){
-					console.log("could not delete");
-					res.status(500).send(err);
-				} else {
-					res.json(deletedForumPost);
-				}
-			});
-		}
-	});
+			res.json(deletedForumPost);
+			};
+		});
+});
+
+
+
+
+// // delete post
+app.delete('/api/posts/:id', function(req, res) {
+
+  // take the value of the id from the url parameter
+  var targetId = req.params.id;
+
+ // remove item from the db that matches the id
+   Post.findOneAndRemove({_id: targetId}, function (err, deletedPost) {
+    if (err){
+      res.status(500).send(err);
+    } else {
+      // send back deleted post
+      res.json(deletedPost);
+    }
+  });
 });
 
 
