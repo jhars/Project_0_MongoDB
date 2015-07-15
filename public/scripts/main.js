@@ -94,7 +94,7 @@ setupView: function() {
   $('#new-post').on('submit', function (event) {
     event.preventDefault();
 
-    var newID = Math.random();
+    var newID = 5;
     var newUserName = $('#user-name').val();
     var newForumPost = $('#blog-post').val();
     postController.create(newID, newUserName, newForumPost);
